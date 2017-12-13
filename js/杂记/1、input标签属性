@@ -1,0 +1,76 @@
+1、input标签属性 
+	
+	tabindex属性：  定义输入框在使用 Tab 建时切换的顺序 (tabindex = 1,2,3,4...)
+
+	autofocus属性： 输入框自动聚焦属性
+
+2、加载 html 时chrome浏览器报错，错误信息为：Uncaught SyntaxError:Unexpected token < 
+	
+	发现有一个js文件路径不对, 一般来说静态资源路径不对报404找不到的错误, 提示资源加载失败(Failed to load resource: net::ERR_FILE_NOT_FOUND)
+
+	从报错源可以看出，前一种源于浏览器内存(error2.aspx chrome 浏览器的底层是aspx语法)，后一种源于html文件(xxx.html)
+
+3、打电话、发短信
+		
+		<a href="tel:1300000000" ></a>
+		<a href="sms:1200000000" ></a>
+
+	自动探测电话号码
+
+		<meta name="format-detection" content="telephone=yes/no">
+
+		<meta http-equiv="属性" content="属性值">
+
+		http-equiv的属性与content中的属性值是一对键值对, 有
+
+		(1)、http-equiv="expires" content="Wed, 20 Jun 2007 22:33:00 GMT"（时间必须是GMT的时间格式，网页过期后必须重新加载）
+
+		(2)、http-equiv="Pragma" content="no-cache" (禁止浏览器从本地机的缓存中调阅页面内容，访问者无法脱机浏览)
+
+		(3)、http-equiv="Refresh" content="2; URL=http://www.net.cn" (停留2s后自动刷新并跳转到新的地址)
+
+		(4)、http-equiv="Set-Cookie" content="cookievalue=xxx;expires=Wednesday, 20-Jun-2007 22:30:00 GMT; path=/" （网页过期时，设置cookie）
+
+		(5)、http-equiv="Window-target" content="_top" （强制页面在当前窗口以独立的页面显示，防止别人在框架里调用页面）
+
+		(6)、http-equiv="content-type" content="text/html; charset=gb2312" (设定页面使用的字符集)
+
+		(7)、http-equiv="Pics-label" content="" (设定网页限制级别) 
+
+		(8)、http-equiv="Page_Enter/Page_Exit" content="revealTrans(duration=1.0, transtion=12)" (设定进入或离开页面时的特殊效果，其中duration是过度时间，transtion是过渡效果其值有数字0-23)
+
+		(9)、http-equiv="cache-control" content="no-cache" (不缓存页面及页面静态资源)
+
+		(10)、http-equiv="expires" content="0" (设定网页的过期时间)
+
+		(11)、http-equiv="keywords" content="keyword1,keyword2,keyword3" (设置搜索引擎的搜索的关键字)
+
+		(12)、http-equiv="description" content="This is my page" (页面描述)
+
+
+4、 DOM自动聚焦
+	
+	document.getElementById('').focus();
+
+5、 escape、encodeURI、encodeURIComponent的区别
+
+		escape针对字符串进行编码，另外两种针对URI编码，共同的作用是让她们在电脑上可读
+
+		escape对ASCII字母、数字、@、*、/、+ 不编码
+
+		encodeURI 对ASCII字母、数字、~、！、@、#、$、&、*、(、)、=、:、/、,、;、?、+、' 不编码
+
+		encodeURIComponent 对ASCII字母、数字、~、!、*、(、)、' 不编码
+
+		编码效果对比（http://www.cnblogs.com/season-huang/some/other thing
+
+		endodeURI http://www.cnblogs.com/season-huang/some/other%20thing
+
+		encodeURI http%3A%2F%2Fwww.cnblogs.com%2Fseason-huang%2Fsome%20other%20thing
+
+6、 统一资源定位地址 URL (Uniform Resource Locator)
+
+	统一资源标识符   URI (uniform Resource Identifer)
+
+7、
+

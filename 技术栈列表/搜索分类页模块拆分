@@ -1,0 +1,48 @@
+搜索页拆分模块：搜索结果模块、搜索框模块、历史记录模块、热词模块、预测词模块
+
+分类页拆分模块：一级类目模块，搜索框模块、历史记录模块、热词模块、预测词模块
+
+分类列表拆分模块：二级类目模块，搜索框模块、历史记录模块、热词模块、预测词模块
+
+
+	缓存技术： 
+				memcache、ehcache、redis
+
+	数据持久化技术：
+
+
+	分布式技术：
+
+				nginx、keepalived、zookeeper、dubbo、spingcloud、thrift
+
+	消息队列技术： 
+
+				RabbitMQ、ActiveMQ、RocketMQ、Kafka、ZeroMQ
+
+	搜索引擎技术： 
+
+				Lucene、Solr、ElasticSearch
+
+	文件存储技术： 
+
+				FastDFS、GFS、HDFS、Ceph、GridFS、mogileFS、TFS、FIP
+
+	云服务技术：
+
+				阿里云服务、百度AI开放平台、七牛云、腾讯云、Ucloud、环信
+
+	TCP通讯服务技术； 
+
+				Mina、Netty
+
+	服务器操作系统：
+
+				CentOS、uBuntu、FreeBSD、Debian、Solaris
+
+	服务器中间件： 
+
+				tomcat、weblogic、websphere、jboss、jetty、iis
+
+	小语种：
+
+				英语、日语、韩语、俄语、法语、德语、
