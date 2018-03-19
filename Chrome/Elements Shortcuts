@@ -1,0 +1,70 @@
+Elements Panel 		Dom元素面板
+
+		Toggle Hide Element 				H 						Dom显示隐藏切换
+		Toggle Edit as HTML					F2						Dom编辑切换
+		Navigate elements					↑/↓						上一个下一个Dom
+		Expand/collapse						→/←						Dom展开折叠
+		Edit attribute						Enter					编辑Dom属性
+
+Styles Pane 		样式面板
+		
+		Next/previous property				Tab/Shift + tab 		样式切换
+		Increment value						↑						数值加1
+		Decrement value 					↓						数值减1
+		Increment by 10						PageUp					数值加10
+		Decrement by 10						pageDown 				数值减10
+		Increment by 100 					Shift + PageUp  		数值加100
+		Decrement by 100 					Shift + pageDown		数值减100
+		Increment by 0.1 					Alt + ↑					数值加0.1
+		Decrement by 0.1 					Alt + ↓					数值减0.1
+
+Debugger			调试功能
+
+		Pause/Continue 						F8						暂停/继续
+		Step over							F10						跨越式单步调试
+		Step into							F11						干预式调试
+		Step out 							Shift + F11				退出干预式调试
+		Evalute selection in console		Ctrl + Shift + E 		调出控制台
+		Toggle breakpoint					Ctrl + B 				光标所在行增加解除断点
+		Toggle breakpoint enabled 			Ctrl + Shift + B 		光标所在行断点置灰切换
+		Toggle all breakpoints				Ctrl + F8 				所有断点置灰切换
+
+console 			控制台面板
+
+		Clear Console 						Ctrl + L 				清空控制台
+		Next/previous						↓/↑ 					上下条输入历史控制
+											Shift + Enter			多行输入
+		Execute command						Enter 					执行命令
+
+Text editor 		文件编辑功能
+		
+		Go to member						Ctrl + Shift + O 		按方法跳转
+		Go to line 							Ctrl + G 				按行数跳转
+		Jump to previous editing location 	Alt + - 				跳转到上次编辑处
+		Jump to next editing location 		Alt + + 				跳转到下次编辑处
+		Toggle comment						Ctrl + / 				双斜杠注释切换
+		Select next occurrence				Ctrl + D 				连续选中一个词
+		Soft undo 							Ctrl + U 				撤销选中
+		Go to matching bracket				Ctrl + M  				匹配括号
+		Close editor tab 					Alt + W  				关闭当前编辑文件
+
+Performance Panel 	表现面板
+
+		Start/stop recording 				Ctrl + E 				开始/停止记录
+
+		do not konw how use the function, so no shortcuts list
+
+All Panels  		所有面板
+
+		Go to the panel to the left/right	Ctrl + [ / Ctrl + ]  	切换嵌板
+		Toggle drawer 						Esc	 					显示隐藏抽屉
+		Toggle device mode 					Ctrl + Shift + M 		手机电脑模式切换
+		Toggle dock side					Ctrl + Shift + D 		嵌板停靠方向切换
+		Search								Ctrl + F 				搜索
+		Search across all sources			Ctrl + Shift + F 		全文中搜索
+		Select node to inspect				Ctrl + Shift + C 		使用node监控
+		Go to source 						Ctrl + P 				在source嵌板中打开文件
+		Run command 						Ctrl + Shift + P 		执行命令
+
+
+快捷键参考文档地址：https://developers.google.com/web/tools/chrome-devtools/shortcuts

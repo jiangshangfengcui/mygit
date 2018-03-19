@@ -1,0 +1,119 @@
+切换右窗口			ctrl + PgDn
+切换左窗口			ctrl + PgUp
+切换上次浏览窗口	ctrl + Tab
+转换软件方向		ctrl + Alt + ↑/↓/←/→ (注：这是windows系统的行为)
+快速选中下一个		ctrl + D
+撤销上一步选中 		ctrl + U
+快速全部选中		Alt + shift + F3
+上下分两屏			Alt + shift + F8
+上下分三屏			Alt + shift + F9
+左右分两屏			Alt + shift + F2
+左右分三屏			Alt + shift + F3
+在文件中查找		Ctrl + P 
+折叠选中的代码		Ctrl+Shift+[ 
+展开选中的代码    	Ctrl+Shift+] 
+展开所有折叠代码	Ctrl+K+0 
+
+安装插件有两种方式：通过命令安装和手动下载插件包
+命令安装：在命令行或者 点击Prederences中Package Install 执行Package Control: Install Package 然后在弹出的终端窗口中输入插件名称回车安装，安装好后在Preferences → Package Setting 中可以查看该插件
+卸载插件：方法同上，执行命令Package Controll: remove Package 命令进入卸载插件界面
+
+**************************************************************************************************************
+1、汉化
+	
+	package → Default → 带有'-menu'的文件定义各个状态栏的caption
+
+	总共有9个menu文件：
+						文件内容菜单	Context.sublime-menu
+						在文件中查找	Find in Files.sublime-menu
+						缩进菜单		Indentation.sublime-menu
+						主菜单			Main.sublime-menu
+						侧边栏镶嵌指针	Side Bar Mount Point.sublime-menu
+						侧边栏菜单		Side Bar.sublime-menu
+						语法菜单		Syntax.sublime-menu
+						标签内容菜单	Tab context.sublime-menu
+						小窗口菜单		Widget Context.sublime-menu
+
+	默认快捷键：
+						默认快捷键文件	Default(Windows).sublime-keymap
+
+						打开新窗口		Ctrl + Shift + N
+						关闭当前窗口	Ctrl + Shift + W
+						打开文件		Ctrl + O
+						重新打开最近关闭的文件	Ctrl + Shift + T
+						切换文件		Alt + O
+						新建文件 		Ctrl + N
+						保存文件		Ctrl + S
+						另存文件		Ctrl + Shift + S
+						关闭文件		Ctrl + F4
+						关闭文件或窗口	Ctrl + W
+						显隐侧边栏		(Ctrl + K) + (Ctrl + B)
+						切换全屏模式	F11
+						连续选中		Shift + ↑/↓/←/→
+						选中鼠标到首尾 	Shift + Home/End
+						滚动到页首页尾  Ctrl + Home/End
+						选中并滚动到首尾Ctrl + Shift + Home/End
+						切换到上下标签 	Ctrl + Up/Dn
+						切换到上次浏览的标签 Ctrl + Tab
+						切换到下次浏览的标签 Ctrl + Shift + Tab 
+						全选 			Ctrl + A
+						快选择转出成行选择 	Ctrl + Shift + L
+						缩进 			Ctrl + ]
+						反缩进 			Ctrl + [
+						连续选中		Ctrl + D
+						文件打开历史记录 Ctrl + P
+						代开命令面板	Ctrl + Shift + P
+						按行数跳转		Ctrl + G
+						全文搜索 		Ctrl + ;
+						缩放字体		Ctrl + -/+
+						删除整个单词	Ctrl + Backspace
+						删除整行		Ctrl + Shift + Backspace  
+						交换相邻字符顺序	Ctrl + T
+						取消分屏		Alt + Shift + 1
+						左右分两屏		Alt + Shift + 2
+						左右分三屏		Alt + Shift + 3
+						上下分两屏		Alt + Shift + 8
+						上下分三屏		Alt + Shift + 9
+
+
+
+**************************************************************************************************************
+1、包管理插件 Package Control  
+		
+		view →  show console → 输入 import urllib2,os; pf='Package Control.sublime-package'; ipp=sublime.installed_packages_path(); os.makedirs(ipp) if not os.path.exists(ipp) else None; urllib2.install_opener(urllib2.build_opener(urllib2.ProxyHandler())); open(os.path.join(ipp,pf),'wb').write(urllib2.urlopen('http://sublime.wbond.net/'+pf.replace(' ','%20')).read()); print 'Please restart Sublime Text to finish installation' 回车 → 重新打开sublime 
+
+		安装sublime text 3 : import urllib.request,os; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); open(os.path.join(ipp, pf), 'wb').write(urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ','%20')).read())
+
+**************************************************************************************************************
+2、侧边栏富应用化插件 Sidebar Enhancements, 增加文件和文件夹操作选项
+		设置浏览器打开 
+						preference → package settings → side bar → key bindings - Users → 自定义配置， 如下：
+
+						[
+						    { "keys": ["ctrl+shift+c"], "command": "copy_path" },// 复制文件路径
+						    //2345Explorer
+						    { "keys": ["f11"], "command": "side_bar_files_open_with",// 浏览器中打开快捷键设置
+						             "args": {
+						                "paths": [],
+						                "application": "C:\\Program Files (x86)\\2345Explorer\\2345Explorer.exe",
+						                "extensions":".*" //匹配任何文件类型
+						            }
+						    },
+						    //chrome
+						    { "keys": ["f12"], "command": "side_bar_files_open_with",
+						            "args": {
+						                "paths": [],
+						                "application": "C:\\Users\\Administrator.2013-20170320ZY\\AppData\\Local\\Google\\Chrome\\Application\\chrome.exe",
+						                "extensions":".*"
+						            }
+						     }
+						]
+前端快捷编码插件 Emmet
+高亮显示匹配的元素对，包括标签，括号，引号等 BracketHighlighter
+
+CSS样式排序插件 CSScomb 
+				 可以局部（选中）或者整体进行排序，更改插件目录里的CSScomb.sublime.settings文件中属性的顺序自定义排序顺序, 另外该插件依赖node.js, 安装node.js在:\usr\local\bin文件夹下
+
+				 转成中文菜单修改 Main.sublime-menu
+
+

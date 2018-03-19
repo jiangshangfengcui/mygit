@@ -64,9 +64,9 @@
 
 		编码效果对比（http://www.cnblogs.com/season-huang/some/other thing
 
-		endodeURI http://www.cnblogs.com/season-huang/some/other%20thing
+		endodeURI           http://www.cnblogs.com/season-huang/some/other%20thing
 
-		encodeURI http%3A%2F%2Fwww.cnblogs.com%2Fseason-huang%2Fsome%20other%20thing
+		encodeURIComponent  http%3A%2F%2Fwww.cnblogs.com%2Fseason-huang%2Fsome%20other%20thing
 
 6、 统一资源定位地址 URL (Uniform Resource Locator)
 

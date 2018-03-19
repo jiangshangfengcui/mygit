@@ -1,0 +1,175 @@
+1、连等问题
+	
+	var a = {n: 1}；
+	var b = a;
+	a.x = a = {n: 2}；
+
+	连等语句先给最右边的变量赋值，然后一次赋值
+	.运算符的优先级比=运算符的优先级高，程序先执行a.x
+	连等运算符的读取顺序依然是自左向右，或者说连等运算是一系列的函数嵌套，这样导致的结果就是最右边的变量最先赋值
+
+	var a = {n:1}; 
+	var b = a;  
+	a = {n:2};    
+	a.x = a ;
+
+	扩展
+		function fun(){  
+		    var a = b = 5;  
+		}  
+		fun();  
+		alert(typeof a); // --> undefined  
+		alert(typeof b); // --> number  
+
+		连等中声明的变量除了的一个变量外都是全局变量
+
+
+2、isNaN
+
+		function isNaN(value) {
+			return typeof value === 'number' && isNaN(value);
+		}
+
+		JS中的数字可以划分为两种：正常数字和NaN
+		上面封装的方法其实是多余的，系统提供的方法isNaN已经具备检验数据类型的能力
+
+
+3、slice、substr、substring的区别
+	
+		三者的功能都是截取字符串，只是他们的参数不同，slice跟substring的参数是索引，substr的第一个参数是索引，第二个参数是个数
+		对于负数参数三者的处理方式也不同，slice将所有的负数参数加字符串length处理，substring直接将负数参数转换成0，substr只将第一个负数参数加length处理
+
+	扩展：自定义字符串插入函数
+
+		insert: function(string, subString, start) {
+		    return string.slice(0, start) + subString + string.slice(start);
+		}
+
+		数组的截断函数 splice(索引, 个数) 个数为0或者负数无效
+
+
+4、特殊数据类型相等判断
+
+		null、undefined只有一个
+		NaN不等于NaN
+		另外，函数也能转换成字符串进行拼接
+
+
+5、自定义Array.prototype.reduce方法
+
+		reduce: function(array, callback /*, initialValue*/) {
+		    if (this === null) {
+		        throw new TypeError('Array.prototype.reduce called on null or undefined');
+		    }
+
+		    if (typeof callback !== 'function') {
+		        throw new TypeError(callback + ' is not a function');
+		    }
+
+		    var t = Object(array),
+		        len = t.length >>> 0,
+		        k = 0,
+		        value;
+
+		    if (arguments.length === 3) {
+		        value = arguments[2];
+		    } else {
+		        while (k < len && !(k in t)) {
+		            k++;
+		        }
+
+		        if (k >= len) {
+		            throw new TypeError('Reduce of empty array with no initial value');
+		        }
+
+		        value = t[k++];
+		    }
+		    for (; k < len; k++) {
+		        if (k in t) {
+		            value = callback(value, t[k], k, t);
+		        }
+		    }
+		    return value;
+		}
+
+		在https://developer.mozilla.org网站上给出了相同的代码，只是MDN上是针对Array.prototype构建reduce函数
+
+
+6、 ECMAScript 位运算符
+
+		ECMAScript中整数分成两种类型：有符号整数（包括正数和负数）和无符号整数（只包括正数）
+		所有整数字面量默认都是有符号整数
+		有符号整数使用31位表示整数的数值，用第32位表示整数的符号，0表示正数，1表示负数
+
+		将其他进制的数转换成其他进制 [number].toString([radix])
+
+		正数的源码、反码、补码都是源码
+		负数的反码是源码除了符号位取反，补码是在反码的基础上加1
+
+		位运算有，var num = 12345;
+
+		否定号（~，NOT）
+					numNot = ~num;
+		运算规则：
+					1、转换成32为数字
+					2、转换成它的反码
+					3、转换成浮点数
+					实质上对数字求负再减1
+		
+		与运算（&，AND）
+					numAnd = num & 11;
+		运算规则：
+					1、化成而机制
+					2、按位与
+
+		或运算（|，OR）
+					numOr = num | 11;
+		运算股则： 
+					1、化成二进制
+					2、按位或
+
+		异或运算（^，XOR）
+					numXor = num ^ 22;
+
+		左移运算（<<）
+					numLeft = num << 3;
+					不移动符号位，至操作数值位
+
+		有符号右移运算（>>）
+					numRight = num >> 3;
+					保留符号位右移3位
+
+		无符号右移运算（>>>）
+					numRightUnsign = num >>> 3;
+
+
+		注*：负数的二进制为其正数的补码加1
+
+
+7、A instanceof B 检测A的原型链是否在B的原型
+
+	所有的对象的原型链都在Object上
+	字面量定义的对象不在Object上
+	相同构造器生成的对象原型相同
+
+8、bind的用法
+	
+	类似与apple、call方法，改变执行上下文的this, 同为Function的原型方法
+	格式  Function.bind(this, arg1, arg2, arg3...)  传入的参数在 Function 中一次首先接受，即使用于ajax中改变this;
+
+9、JSON.parse() 用来解析JSON字符串
+	
+	语法 
+			一个参数 JSON.parse(text) 返回结果
+			两个参数 JSON.parse(text, function (key, value) { return value;}) 使用return返回value值, key为解析时某一键值，value为对应的属性值，第二个函数参数可以来在返回结果之前更改属性值
+
+			参数text必须是严格的JSON字符串，键值使用双引号，数组或对象字符串不能以逗号结尾，不然报错
+
+10、keypress时间evt对象
+		
+		evt.key    是字母
+		evt.which  是数字
+		
+		if(evt.key && evt.key === 'Enter') || evt.which === 13){
+
+		}

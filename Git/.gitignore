@@ -1,0 +1,59 @@
+.gitignore文件书写规范
+
+		#为注释
+		匹配模式为shell使用的正则表达式
+		最后"/"匹配的是目录
+		排除符号：！排除匹配的文件中某种文件
+
+		以上解说是从网上摘抄过来，但是本人觉得说地笼统而且没有切中要害。其实后两条已经包含在第二条中了，整个书写规范就是使用了Glob路径文件匹配模式。这种匹配模式可分成两种路径匹配和文件匹配。
+
+		凡是带有/的都是路径匹配
+
+			在开头	/time/year/			匹配year文件或文件夹  
+			在中间	time/year			匹配year文件或文件夹
+			在最后	time/	
+
+		凡是最后不是以/结束的都是匹配文件
+
+			没有后缀	time/year 	 	匹配year文件或文件夹，完整匹配，带有后缀的year文件匹配不到
+			带有后缀 	time/year.txt  	匹配year.txt
+
+		*匹配规则
+
+			在开头		*/foo 			匹配一级文件夹下的foo文件或文件夹
+			在中间		Chinese/*/foo	只匹配到Chinese子文件夹下foo文件或文件夹
+			在最后		Chinese/* 		匹配文件夹下所有的文件夹和文件
+			在文件		*.md			匹配所有后缀名为md的文件
+						Chinese/*.md 	匹配Chinese文件夹所有后缀为md的子文件
+
+		**匹配规则
+
+			在开头		**/foo 			匹配所有的foo文件或文件夹
+			在中间 		Chinese/**/foo  匹配Chinese文件夹下所有foo文件或文件夹
+			在最后 		Chinese/** 		匹配文件夹下所有的文件夹和文件
+			在文件 		**.md 			匹配所有后缀名为md的文件
+						Chinese/**.md 	无效匹配
+
+		!匹配规则
+
+			!Chinese/Beijing 			匹配时排除Chinese/Beijing文件或文件夹
+
+		?匹配规则
+
+			在开头 		?.md 			匹配名字只有一个字符后缀为md的文件
+			在中间 		Chinese/???/*.md匹配名字有三个字符的文件夹
+			在最后 		Chinese/? 		匹配名字只有一个字符的文件后文件夹
+			在文件 		Chinese/?.md 	匹配名字只有一个字符的后缀为md的文件
+
+		[]匹配规则
+
+			在开头 		[C]hinese/Beijing/*.md   	无效
+						Chinese/Beijing/[f]oo.md 	有效，匹配foo.md文件
+			在中间		Chinese/[B]eijing/*.md 		无效 
+			在最后 		Chinese/chin[a] 			有效，匹配china文件或文件夹
+
+		文件和文件加匹配均不区分大小写
+
+		开头的空格有效，末尾的空格无效
+
+

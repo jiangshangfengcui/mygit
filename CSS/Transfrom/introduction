@@ -1,0 +1,27 @@
+
+.transform {
+	transform:  none
+				translateX(100px)  					相对原位置保留原位置移动 参数是像素值或rem
+				transformY(100px)
+				translateZ(100px)
+				translate(100px, 100px)
+				translate3d(100px, 100px, 100px)
+				scaleX(2) 							以中心点缩放 参数是倍数
+				scaleY(2)
+				scaleZ(2) 
+				scale(2, 2) 
+				scale(2, 2, 2)
+				rotateX(45deg) 						沿中心点所在X轴线顺时针3D旋转45度
+				rotateY(30deg)						沿中心点所在Y轴线顺时针3D旋转30度
+				rotateZ(30deg)						沿中心点所在Z轴线顺时针3D旋转30度
+				rotate3d(45deg, 30deg, 30deg)
+				skewX(30deg) 						中心点所在X轴线逆时针2D倾斜30度
+				skewY(30deg) 						中心点所在Y轴线逆时针2D倾斜30度
+				skew(30deg, 30deg) 					中心点所在X、Y轴线各逆时针2D倾斜30度
+				perspective(150px) 					站在页面垂直线上的位置，观测点位置
+	-webkit-transform: 
+	-o-transform:
+	-ms-transform:
+	-moz-transform:
+
+}

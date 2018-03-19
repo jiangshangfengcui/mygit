@@ -1,0 +1,7 @@
+1、 打开make文件在41行代码，
+modules = (env['MODULES'] || 'zepto event ajax form ie').split(' ')
+其中|| 后的就是自定义加入的模块，下载下来的压缩包中含有的模块有
+
+Zepto、event、ajax、form、ie、fx_methods、assets、data、deferred、callbacks、selector、touch、gesture、stack、ios3共15个模块
+2、 执行npm  install 命令安装node_modules依赖包
+3、 执行 npm run-script dist 命令进行构建 ，然后生成的文件zepto.min.js在dist文件夹中
