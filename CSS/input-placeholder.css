@@ -1,0 +1,19 @@
+设置input样式代码：
+
+input::-webkit-input-placeholder{ /*WebKit browsers*/
+
+color: red;
+
+}
+
+input::-moz-input-placeholder{ /*Mozilla Firefox*/
+
+color: red;
+
+}
+
+input::-ms-input-placeholder{ /*Internet Explorer*/ 
+
+color: red;
+
+}

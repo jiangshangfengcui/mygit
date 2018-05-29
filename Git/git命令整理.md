@@ -24,4 +24,7 @@
 
 13、退出编辑模式    Esc + : + x + Enter
 
-14、
+14、撤销暂存区并保存修改	git reset --mixed	git reset HEAD <commit_id> --keep  	git reset HEAD^ --keep
+
+15、撤销提交 	git log 查看<commit_id>		git reset HEAD <commit_id> --keep 	git reset HEAD ^^^^
+
