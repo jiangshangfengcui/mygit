@@ -1,0 +1,66 @@
+关于 C
+
+	C 语言是为了编写 UNIX 操作系统而被发明的。
+
+	C 语言是以 B 语言为基础的，B 语言大概是在 1970 年被引进的。
+
+	C 语言标准是于 1988 年由美国国家标准协会（ANSI，全称 American National Standard Institute）制定的。
+
+	截至 1973 年，UNIX 操作系统完全使用 C 语言编写。
+
+	目前，C 语言是最广泛使用的系统程序设计语言。
+
+	大多数先进的软件都是使用 C 语言实现的。
+
+	当今最流行的 Linux 操作系统和 RDBMS（Relational Database Management System：关系数据库管理系统） MySQL 都是使用 C 语言编写的。
+
+为什么使用 C
+
+	C 语言最初是用于系统开发工作，特别是组成操作系统的程序。由于 C 语言所产生的代码运行速度与汇编语言编写的代码运行速度几乎一样，所以采用 C 语言作为系统开发语言
+
+标准 C11
+
+	C11（也被称为C1X）指ISO标准ISO/IEC 9899:2011，是当前最新的C语言标准。在它之前的C语言标准为C99。
+
+文本编辑器
+
+	本编辑器包括 Windows Notepad、OS Edit command、Brief、Epsilon、EMACS 和 vim/vi。
+文本编辑器的名称和版本在不同的操作系统上可能会有所不同。例如，Notepad 通常用于 Windows 操作系统上，vim/vi 可用于 Windows 和 Linux/UNIX 操作系统上。
+
+C 编译器
+
+	最常用的免费可用的编译器是 GNU 的 C/C++ 编译器
+
+	UNIX/Linux 上的安装 
+
+		教程地址：http://gcc.gnu.org/install/
+
+	Mac OS 上的安装
+
+		如果您使用的是 Mac OS X，最快捷的获取 GCC 的方法是从苹果的网站上下载 Xcode 开发环境，并按照安装说明进行安装。一旦安装上 Xcode，您就能使用 GNU 编译器。
+
+	Windows 上的安装
+
+		为了在 Windows 上安装 GCC，您需要安装 MinGW
+
+		请访问 MinGW 的主页 www.mingw.org，进入 MinGW 下载页面，下载最新版本的 MinGW 安装程序，命名格式为 MinGW-<version>.exe。
+
+		当安装 MinWG 时，您至少要安装 gcc-core、gcc-g++、binutils 和 MinGW runtime，但是一般情况下都会安装更多其他的项。
+
+		添加您安装的 MinGW 的 bin 子目录到您的 PATH 环境变量中，这样您就可以在命令行中通过简单的名称来指定这些工具。
+
+		当完成安装时，您可以从 Windows 命令行上运行 gcc、g++、ar、ranlib、dlltool 和其他一些 GNU 工具。
+
+编译 & 执行 C 程序
+
+	1、创建 hello.c 文件
+
+	2、打开命令提示符，进入到保存文件所在的目录。
+
+	3、键入 gcc hello.c，输入回车，编译代码。
+
+	4、果代码中没有错误，命令提示符会跳到下一行，并生成 a.out 可执行文件。
+
+	5、现在，键入 a.out 来执行程序。
+
+	6、您可以看到屏幕上显示 "Hello World"。

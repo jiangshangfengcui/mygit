@@ -48,6 +48,15 @@
 		(12)、http-equiv="description" content="This is my page" (页面描述)
 
 
+		<meta charset="UTF-8">
+		<meta name="apple-mobile-web-app-capable" content="yes"> <!-- 是否启用 WebApp 全屏模式，删除苹果默认的工具栏和菜单栏 -->
+		<meta content="yes" name="apple-touch-fullscreen">  <!-- 添加到主屏幕后，全屏显示 -->
+		<meta name="App-Config" content="fullscreen=yes,useHistoryState=yes,transition=yes">
+		<meta name="msapplication-tap-highlight" content="no"> <!-- windows phone 点击无高光 -->
+		<% if(noTel == 1){ %>
+		<meta name="format-detection" content="telephone=no"/> <!-- 屏蔽safari拨打电话 -->
+
+
 4、 DOM自动聚焦
 	
 	document.getElementById('').focus();

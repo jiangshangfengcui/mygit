@@ -13,6 +13,7 @@
 折叠选中的代码		Ctrl+Shift+[ 
 展开选中的代码    	Ctrl+Shift+] 
 展开所有折叠代码	Ctrl+K+0 
+打开上次关闭的页面  Ctrl + Shift + T
 
 安装插件有两种方式：通过命令安装和手动下载插件包
 命令安装：在命令行或者 点击Prederences中Package Install 执行Package Control: Install Package 然后在弹出的终端窗口中输入插件名称回车安装，安装好后在Preferences → Package Setting 中可以查看该插件
