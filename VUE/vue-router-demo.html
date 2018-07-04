@@ -1,0 +1,1191 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+	<div id="app">
+	  <h1>Hello App!</h1>
+	  <p>
+	    <!-- 使用 router-link 组件来导航. -->
+	    <!-- 通过传入 `to` 属性指定链接. -->
+	    <!-- <router-link> 默认会被渲染成一个 `<a>` 标签 -->
+	    <!-- tag 属性更换标签 -->
+	    <!-- 被激活的路由自动设置表示激活的css类名 .router-link-active -->
+	    <router-link to="/foo">Go to Foo</router-link>
+	    <router-link to="/bar">Go to Bar</router-link>
+	  </p>
+	  <!-- 路由出口 -->
+	  <!-- 路由匹配到的组件将渲染在这里 -->
+	  <router-view></router-view>
+	</div>
+
+
+	<div id="app1">
+		<!-- router-link 组件的属性 to -->
+		<!-- 
+			<router-link to="{path: 'register', query: {plan: 'private'}, name: 'user', params: {userId: 23}}"></router-link>
+		 -->
+		<!-- 字符串 -->
+		<router-link to="/home1">Home1</router-link>
+		<!-- 渲染结果 -->
+		<a href="home">Home</a>
+
+		<!-- 使用 v-bind 的 JS 表达式 -->
+		<router-link v-bind:to="'home'">Home</router-link>
+
+		<!-- 不写 v-bind 也可以，就像绑定别的属性一样 -->
+		<router-link :to="'home'">Home</router-link>
+
+		<!-- 同上 -->
+		<router-link :to="{ path: 'home' }">Home</router-link>
+
+		<!-- 命名的路由 -->
+		<router-link :to="{ name: 'user', params: { userId: 123 }}">User</router-link>
+
+		<!-- 带查询参数，下面的结果为 /register?plan=private -->
+		<router-link :to="{ path: 'register', query: { plan: 'private' }}">Register</router-link><br/>
+		<router-view></router-view>
+	</div>
+
+
+
+	<div id="app2">
+		<!-- router-link 组件 replace 属性 -->
+		<!-- 
+			@proto {Boolean} replace
+			@default false
+
+			设置 replace 属性的话，当点击时，会调用 router.replace() 而不是 router.push()，于是导航后不会留下 history 记录。
+			
+		 -->
+
+		 <router-link :to="{ path: '/abc'}" replace>我是组件2导航</router-link>
+		 <router-view></router-view>
+	</div> 
+
+
+
+	<div id="app3">
+		<!-- router-link 组件 append 属性 -->
+		<!-- 
+			@proto {Boolean} append
+			@default false
+
+			设置 append 属性后，则在当前 (相对) 路径前添加基路径。例如，我们从 /a 导航到一个相对路径 b，如果没有配置 append，则路径为 /b，如果配了，则为 /a/b
+
+			如果 path 以 '/' 开头，就是绝对路径
+			如果 path 不以'/' 开头，就是相对路径
+			
+		 -->
+
+		 <router-link :to="{ path: '/relative'}" append>我是组件3导航1</router-link>
+		 <router-link :to="{ path: 'path'}" append>我是组件3导航2</router-link>
+		 <router-view></router-view>
+	</div> 
+
+	<div id="app4">
+		<!-- router-link 组件 tag 属性 -->
+		<!-- 
+			@proto {Boolean} string
+			@default "a"
+
+			有时候想要 <router-link> 渲染成某种标签，例如 <li>。 于是我们使用 tag prop 类指定何种标签，同样它还是会监听点击，触发导航。
+
+			
+		 -->
+
+		 <router-link to="/app4" tag="li">app4</router-link>
+		 <router-view></router-view>
+	</div>
+
+
+	<div id="app5">
+		<!-- router-link 组件 active-class 属性 -->
+		<!-- 
+			@proto {Boolean} string
+			@default "router-link-active"
+
+			设置 链接激活时使用的 CSS 类名。默认值可以通过路由的构造选项 linkActiveClass 来全局配置。
+
+			
+		 -->
+
+		 <router-link to="/app5" tag="li">app5</router-link>
+		 <router-view></router-view>
+	</div> 
+
+
+	<div id="app6">
+		<!-- router-link 组件 exact 属性 -->
+		<!-- 
+			@proto {Boolean} string
+			@default "false"
+
+			"是否激活" 默认类名的依据是 inclusive match (全包含匹配)。 举个例子，如果当前的路径是 /a 开头的，那么 <router-link to="/a"> 也会被设置 CSS 类名。
+
+			按照这个规则，每个路由都会激活<router-link to="/">！想要链接使用 "exact 匹配模式"，则使用 exact 属性：
+
+			
+		 -->
+		
+		 <!-- 这个链接只会在地址为 / 的时候被激活 -->
+		 <router-link to="/app" tag="li" exact>app6</router-link>
+		 <router-link to="/app6" tag="li" exact>app6</router-link>
+		 <router-view></router-view>
+	</div> 
+
+	<div id="app7">
+		<!-- router-link 组件 event 属性 -->
+		<!-- 
+			@proto {Boolean} string | Array<string>
+			@default "click"
+
+			声明可以用来触发导航的事件。可以是一个字符串或是一个包含字符串的数组
+
+		 -->
+		
+		 <!-- 这个链接只会在地址为 / 的时候被激活 -->
+		 <router-link to="/app" tag="li" event="dblclick">app7</router-link>
+		 <router-link to="/app7" tag="li" event="mousemove">app7</router-link>
+		 <router-view></router-view>
+	</div> 
+
+
+	<div id="app8">
+		<!-- router-link 组件 exact-active-class 属性 -->
+		<!-- 
+			@proto {Boolean} string | Array<string>
+			@default "router-link-exact-active"
+
+			配置当链接被精确匹配的时候应该激活的 class。注意默认值也是可以通过路由构造函数选项 linkExactActiveClass 进行全局配置的。
+
+		 -->
+		
+		 <!-- 这个链接只会在地址为 / 的时候被激活 -->
+		 <router-link to="/app81" tag="li" event="dblclick">app81</router-link>
+		 <router-link to="/app82" tag="li" event="mousemove">app82</router-link>
+		 <router-view></router-view>
+	</div> 
+
+	
+	<div id="app9">
+		<!-- router-view 组件 -->
+		<!-- 
+			
+
+			<router-view> 组件是一个 functional 组件，渲染路径匹配到的视图组件。<router-view> 渲染的组件还可以内嵌自己的 <router-view>，根据嵌套路径，渲染嵌套组件。
+
+			其他属性 (非 router-view 使用的属性) 都直接传给渲染的组件， 很多时候，每个路由的数据都是包含在路由参数中。
+
+			因为它也是个组件，所以可以配合 <transition> 和 <keep-alive> 使用。如果两个结合一起用，要确保在内层使用 <keep-alive>：
+
+		 -->
+		
+		 <router-link to="/app9" tag="li" event="mousemove">app9</router-link>
+		 <transition>
+		   <keep-alive>
+		     <router-view></router-view>
+		   </keep-alive>
+		 </transition>
+	</div> 
+
+	<div id="app10">
+
+		<!-- 
+			router-view 组件属性 name
+			@default 'default'
+
+			name 的值是 routes 对象中路由的组件名称
+		 -->
+		<router-link to="/app10-up" tag="li" event="click">app10-up</router-link>
+		<router-link to="/app10-down" tag="li" event="click">app10-down</router-link>
+		<router-view name="app10_component1"></router-view>
+		<div style="height: 20px;background: black;"></div>
+		<router-view name="app10_component2"></router-view>
+	</div>
+
+	<div id="app11">
+		<router-link to="/child1" tag="li" event="click">app11-child1</router-link>
+		<router-link to="/child2" tag="li" event="click">app11-child2</router-link>
+		<router-view name="login"></router-view>
+		<router-view></router-view>
+	</div>
+
+	<div id="app12">
+		<router-link to="/app12" tag="li" event="click">app12-child1</router-link>
+		<router-link to="/app12-addRoutes" tag="li" event="click">app12-动态添加路由</router-link>
+		<router-view></router-view>
+	</div>
+
+	<div id="app13">
+		<router-link :to="{name: 'app13', params: {userId: 23424}}">app13-userId</router-link>
+		<router-view ><router-view>
+	</div>
+
+
+
+	
+	<script src="./vue/dist/vue.js"></script>
+	<!-- 
+		CDN地址：https://unpkg.com/vue-router/dist/vue-router.js
+	 -->
+	<script src="./vue-router/dist/vue-router.js"></script>
+
+	<script>
+
+
+		/**
+		 	 router-link 组件 props 
+			 
+			 	to 			
+		 */
+
+
+
+
+
+
+		// 0. 如果使用模块化机制编程，导入Vue和VueRouter，要调用 Vue.use(VueRouter)
+
+		// 1. 定义（路由）组件。
+		// 可以从其他文件 import 进来
+		/*
+			this.$route 是 url 的相关信息，包括 name、path、params (动态参数)、query、hash、fullPath、meta
+
+			this.$router 是操作 url 的方法集对象
+
+			当前路由 <router-link> 对应的 a 标签自动设置 class 属性值 .router-link-active 
+		*/
+		const Foo = {
+			template: '<div @click="goBack">foo <div>{{ username }}</div></div>', 
+			computed: {
+				username () {
+					// 查看$router.params 
+					/**
+					 * 匹配到的路由信息
+					 * @param {Object} $route 
+					 */
+					console.log('Foo 组件的 $route', this.$route); 
+					return  this.$route.params.username ; // 
+				}
+			},
+			methods: {
+				/**
+				 * 整个页面的访问历史记录，钩子函数，操作记录的方法, 它是 router 的实例
+				 * @class {Object} $router 
+				 * @mode {String} mode 'HTML5 history' 或 'hash'
+				 */
+				goBack () {console.log('Foo 组件 goBack 方法中 $router', this.$router);
+					window.history.length > 1 ?
+					this.$router.go(-1) : 
+					this.$router.push('1');
+				}
+			},
+			watch:　{
+				/**
+				 * 实例对象下的$route - 当前路由信息
+				 * 	@class {Object} $route
+				 */
+				'$route' (newVal, oldVal) {
+					//响应路由参数的变化
+					console.log(newVal, oldVal);
+				}
+			}
+		}
+		const Bar = { template: '<div>bar</div>' }
+
+		// 2. 定义路由
+		// 每个路由应该映射一个组件。 其中"component" 可以是
+		// 通过 Vue.extend() 创建的组件构造器，
+		// 或者，只是一个组件配置对象。
+		// 我们晚点再讨论嵌套路由。
+		const routes = [
+		  {
+		  	path: '/foo/:username',// 匹配的路径，实际上hash值
+		  	component: Foo, // 这个路径下的组件
+		  	name: 'foo',  // 
+		  	children: [] 
+		  },
+		  { path: '/bar', component: Bar }
+		]
+
+		// 3. 创建 router 实例，然后传 `routes` 配置
+		// 你还可以传别的配置参数, 不过先这么简单着吧。
+		const router = new VueRouter({
+		  routes // （缩写）相当于 routes: routes
+		})
+
+		// 4. 创建和挂载根实例。
+		// 记得要通过 router 配置参数注入路由，
+		// 从而让整个应用都有路由功能
+		const app = new Vue({
+		  router
+		}).$mount('#app')
+
+		// 现在，应用已经启动了！
+
+		const app1_component1 = {
+			template: '<div style="height:30px;width:100px;border: 2px red solid;" @click="goBack">我是home1组件呢绒</div>',
+			methods: {
+				goBack () {
+					window.history.length > 1 ? this.$router.go(-1) : this.$router.push(-1);
+					console.log(this.$router)
+				}
+			}
+		}
+
+		const app1_routes = [{
+			path: "/home1",
+			name: "home1",
+			component: app1_component1
+		}]
+
+		const app1_router = new VueRouter({
+			routes: app1_routes
+		})
+
+		const app1 = new Vue({
+			router: app1_router
+		}).$mount('#app1');
+
+
+
+
+		const app2_component = {
+			template: "<div style='background:black;' @click='replace'>我是组件2</div>",
+			methods: {
+				replace () {
+					console.log(this.$router);
+				}
+			}
+		}
+
+		const app2_routes = [{
+			path: '/abc',
+			component: app2_component
+		}]
+
+		const app2_router = new VueRouter({
+			routes: app2_routes
+		})
+		const app2 = new Vue({
+			router: app2_router
+		}).$mount('#app2')
+
+		const app3_component1 = {
+			template: "<div style='background:blue;' @click='replace'>我是组件3导航1内容</div>",
+			methods: {
+				replace () {
+					console.log(this.$router);
+				}
+			}
+		}
+		const app3_component2 = {
+			template: "<div style='background:red;' @click='replace'>我是组件3导航2内容</div>",
+			methods: {
+				replace () {
+					console.log(this.$router);
+				}
+			}
+		}
+
+		const app3_routes = [{
+			path: '/relative',      // path 必须以 '/' 开头
+			component: app3_component1
+		},{
+			path: '/relative/path',
+			component: app3_component2
+		}]
+
+		const app3_router = new VueRouter({
+			routes: app3_routes
+		})
+		const app3 = new Vue({
+			router: app3_router
+		}).$mount('#app3')
+
+
+		const app4_component1 = {
+			template: "<div style='background:red;' @click='replace($event)'>我是组件4导航1内容</div>",
+			methods: {
+				replace (event) {
+					console.log(event.target.previousElementSibling.tagName);
+				}
+			}
+		}
+
+		const app4_routes = [{
+			path: '/app4',      // path 必须以 '/' 开头
+			component: app4_component1
+		}]
+
+		const app4_router = new VueRouter({
+			routes: app4_routes
+		})
+		const app4 = new Vue({
+			router: app4_router
+		}).$mount('#app4')
+
+		const app5_component1 = {
+			template: "<div style='background:red;' @click='replace($event)'>我是组件5导航1内容</div>",
+			methods: {
+				replace (event) {
+					console.log(event.target.previousElementSibling.classList);
+				}
+			}
+		}
+
+		const app5_routes = [{
+			path: '/app5',      // path 必须以 '/' 开头
+			component: app5_component1,
+		}]
+
+		const app5_router = new VueRouter({
+			linkActiveClass: 'app-link-active', // 实例化router 时设置 linkActiveClass
+			routes: app5_routes
+		})
+		const app5 = new Vue({
+			router: app5_router
+		}).$mount('#app5')
+
+
+
+		const app6_component1 = {
+			template: "<div style='background:red;' @click='replace($event)'>我是组件6导航1内容</div>",
+			methods: {
+				replace (event) {
+					console.log(event.target.previousElementSibling.classList);
+				}
+			}
+		}
+		const app6_component2 = {
+			template: "<div style='background:yellow;' @click='replace($event)'>我是组件6导航2内容</div>",
+			methods: {
+				replace (event) {
+					console.log(event.target.previousElementSibling.classList);
+				}
+			}
+		}
+
+		const app6_routes = [{
+			path: '/app',      // path 必须以 '/' 开头
+			component: app6_component1,
+		},{
+			path: '/app6',
+			component: app6_component2
+		}]
+
+		const app6_router = new VueRouter({
+			linkActiveClass: 'app6-link-active', // 实例化router 时设置 linkActiveClass
+			routes: app6_routes
+		})
+		const app6 = new Vue({
+			router: app6_router
+		}).$mount('#app6')
+
+
+
+		const app7_component1 = {
+			template: "<div style='background:red;' @click='replace($event)'>我是组件7导航1内容</div>",
+			methods: {
+				replace (event) {
+					console.log(event.target.previousElementSibling.previousElementSibling.classList);
+				}
+			}
+		}
+		const app7_component2 = {
+			template: "<div style='background:yellow;' @click='replace($event)'>我是组件7导航2内容</div>",
+			methods: {
+				replace (event) {
+					console.log(event.target.previousElementSibling.classList);
+				}
+			}
+		}
+
+		const app7_routes = [{
+			path: '/app',      // path 必须以 '/' 开头
+			component: app7_component1,
+		},{
+			path: '/app7',
+			component: app7_component2
+		}]
+
+		const app7_router = new VueRouter({
+			linkActiveClass: 'app7-link-active', // 实例化router 时设置 linkActiveClass
+			routes: app7_routes
+		})
+		const app7 = new Vue({
+			router: app7_router
+		}).$mount('#app7')
+
+
+		const app8_component1 = {
+			template: "<div style='background:red;' @click='replace($event)'>我是组件8导航1内容</div>",
+			methods: {
+				replace (event) {
+					console.log(event.target.previousElementSibling.previousElementSibling.classList);
+				}
+			}
+		}
+		const app8_component2 = {
+			template: "<div style='background:yellow;' @click='replace($event)'>我是组件8导航2内容</div>",
+			methods: {
+				replace (event) {
+					console.log(event.target.previousElementSibling.classList);
+				}
+			}
+		}
+
+		const app8_routes = [{
+			path: '/app81',      // path 必须以 '/' 开头
+			component: app8_component1,
+		},{
+			path: '/app82',
+			component: app8_component2
+		}]
+
+		const app8_router = new VueRouter({
+			linkActiveClass: 'app8-link-active', // 实例化router 时设置 linkActiveClass
+			linkExactActiveClass: 'app8-exact-active-class',// 精准匹配路由情况下 对匹配到的路由添加的class
+			routes: app8_routes 
+		})
+		const app8 = new Vue({
+			router: app8_router
+		}).$mount('#app8')
+
+
+		const app9_component1 = {
+			template: "<div style='background:yellow;' @click='replace($event)'>我是组件9导航2内容</div>",
+			methods: {
+				replace (event) {
+					console.log(event.target.previousElementSibling.classList);
+				}
+			}
+		}
+
+		const app9_routes = [{
+			path: '/app9',      // path 必须以 '/' 开头
+			component: app9_component1,
+		}]
+
+		const app9_router = new VueRouter({
+			linkActiveClass: 'app9-link-active', // 实例化router 时设置 linkActiveClass
+			linkExactActiveClass: 'app9-exact-active-class',// 精准匹配路由情况下 对匹配到的路由添加的class
+			routes: app9_routes 
+		})
+		const app9 = new Vue({
+			router: app9_router
+		}).$mount('#app9')
+
+
+		const app10_component1 = {
+			template: "<div style='background:yellow;' @click='replace($event)'>我是组件10导航2内容</div>",
+			methods: {
+				replace (event) {
+					console.log(event.target.previousElementSibling.classList);
+				}
+			}
+		}
+		const app10_component2 = {
+			template: "<div style='background:red;' @click='replace($event)'>我是组件10导航2内容</div>",
+			methods: {
+				replace (event) {
+					console.log(event.target.previousElementSibling.classList);
+				}
+			}
+		}
+
+		const app10_routes = [{
+			path: '/app10-up',      // path 必须以 '/' 开头
+			components: {
+				app10_component1,
+				// default: {}
+			}
+		},{
+			path: '/app10-down',
+			components: {
+				app10_component2
+			}
+		}]
+
+		const app10_router = new VueRouter({
+			linkActiveClass: 'app10-link-active', // 实例化router 时设置 linkActiveClass
+			linkExactActiveClass: 'app10-exact-active-class',// 精准匹配路由情况下 对匹配到的路由添加的class
+			routes: app10_routes 
+		})
+		const app10 = new Vue({
+			router: app10_router
+		}).$mount('#app10')
+
+
+
+		// Router 构建选项
+		/**
+			routes 
+
+				类型：Array<RouteConfig>
+
+				RouteConfig 的类型定义：
+
+					declare type RouteConfig = {
+					  path: string;
+					  component?: Component;
+					  name?: string; // 命名路由
+					  components?: { [name: string]: Component }; // 命名视图组件
+					  redirect?: string | Location | Function;
+					  props?: boolean | string | Function;
+					  alias?: string | Array<string>;
+					  children?: Array<RouteConfig>; // 嵌套路由
+					  beforeEnter?: (to: Route, from: Route, next: Function) => void;
+					  meta?: any;
+
+					  // 2.6.0+
+					  caseSensitive?: boolean; // 匹配规则是否大小写敏感？(默认值：false)
+					  pathToRegexpOptions?: Object; // 编译正则的选项
+					}
+
+			mode
+			@type {String}
+			@default 'hash'(浏览器环境) | "abstract" (Node.js环境)
+			@value 'hash' | 'history' | 'abstract'
+
+				配置路由模式:
+
+				hash: 使用 URL hash 值来作路由。支持所有浏览器，包括不支持 HTML5 History Api 的浏览器。
+
+				history: 依赖 HTML5 History API 和服务器配置。查看 HTML5 History 模式。
+
+				abstract: 支持所有 JavaScript 运行环境，如 Node.js 服务器端。如果发现没有浏览器的 API，路由会自动强制进入这个模式。
+
+			base 
+			@type {String} 
+			@default '/'
+
+				应用的基路径。例如，如果整个单页应用服务在 /app/ 下，然后 base 就应该设为 "/app/"
+				实例：m.scq.com/app/
+
+			linkActiveClass
+			@type {String}
+			@default 'router-link-active'
+				
+				全局配置 <router-link> 的默认“激活 class 类名”。
+
+			linkExactActiveClass
+			@type {String}
+			@default 'router-link-exact-active'
+
+				全局配置 <router-link> 精确激活的默认的 class。
+
+			scrollBehavior
+			@type {Function} 
+			@param to | from | savedPostion  
+
+			 	to 和 from 是路由对象, savedPostion 当且仅当 popstate 导航 (通过浏览器的 前进/后退 按钮触发) 时才可用
+
+			 	这个方法返回滚动位置的对象信息，长这样：
+
+			 		{ x: number, y: number }
+
+			 		{ selector: string, offset? : { x: number, y: number }} (offset 只在 2.6.0+ 支持)
+
+			 		1、滚动到顶部
+
+				 		scrollBehavior (to, from, savedPosition) {
+				 		  return { x: 0, y: 0 }
+				 		}
+
+				 	2、滚动到上页浏览的位置
+
+				 		scrollBehavior (to, from, savedPosition) {
+				 		  if (savedPosition) {
+				 		    return savedPosition
+				 		  } else {
+				 		    return { x: 0, y: 0 }
+				 		  }
+				 		}
+
+				 	3、滚动到锚点
+
+				 		scrollBehavior (to, from, savedPosition) {
+				 		  if (to.hash) {
+				 		    return {
+				 		      selector: to.hash
+				 		    }
+				 		  }
+				 		}
+
+				 	4、异步滚动
+						
+						返回一个 Promise 来得出预期的位置描述：（2.8.0新增）
+
+						scrollBehavior (to, from, savedPosition) {
+						  return new Promise((resolve, reject) => {
+						    setTimeout(() => {
+						      resolve({ x: 0, y: 0 })
+						    }, 500)
+						  })
+						}
+			
+			parseQuery / stringifyQuery
+			@type {Function}
+
+				提供自定义查询字符串的解析/反解析函数。覆盖默认行为。
+			
+			fallback
+			@type {Boolean} 
+			@default true  当浏览器不支持 history.pushState 控制路由是否应该回退到 hash 模式
+
+			在 IE9 中，设置为 false 会使得每个 router-link 导航都触发整页刷新。它可用于工作在 IE9 下的服务端渲染应用，因为一个 hash 模式的 URL 并不支持服务端渲染。
+
+
+
+		*/
+
+		/**
+
+			元信息 meta 
+
+			const scrollBehavior = (to, from, savedPosition) => {
+			  if (savedPosition) {
+			    // savedPosition is only available for popstate navigations.
+			    return savedPosition
+			  } else {
+			    const position = {}
+			    // new navigation.
+			    // scroll to anchor by returning the selector
+			    if (to.hash) {
+			      position.selector = to.hash
+			    }
+			    // check if any matched route config has meta that requires scrolling to top
+			    if (to.matched.some(m => m.meta.scrollToTop)) {
+			      // cords will be used if no selector is provided,
+			      // or if the selector didn't match any element.
+			      position.x = 0
+			      position.y = 0
+			    }
+			    // if the returned position is falsy or an empty object,
+			    // will retain current scroll position.
+			    return position
+			  }
+			}
+
+			const router = new VueRouter({
+			  mode: 'history',
+			  base: __dirname,
+			  scrollBehavior,
+			  routes: [
+			    { path: '/', component: Home, meta: { scrollToTop: true }},
+			    { path: '/foo', component: Foo },
+			    { path: '/bar', component: Bar, meta: { scrollToTop: true }}
+			  ]
+			})
+		*/
+
+		const app11_component1 = {
+			template: "<div style='background:red; ' @click='handlerClick'>我是组件11登录组件child1_1</div>",
+			methods: {
+				handlerClick: function () {
+					console.log(this.$router);
+				}
+			}
+		}
+		const app11_component2 = {
+			template: "<div style='background:yellow;height: 1000px'>我是组件11注册组件child1_2</div>"
+		}
+		const app11_component3 = {
+			template: "<div style='background:blue;height:5000px'>我是组件11注册组件child2</div>"
+		}
+		const app11_router = new VueRouter({
+			base: window.location.pathname, //
+			mode: 'hash',
+			routes: [{
+				path: '/child1',
+				components: {
+					login: app11_component1,
+					signup: app11_component2
+				}
+			},{
+				path: '/child2',
+				component:  app11_component3
+			}],
+			scrollBehavior (to, from, savedPosition) {
+				if(savedPosition) {
+					// savedPostion 当且仅当 popstate 导航 (通过浏览器的 前进/后退 按钮触发) 时才可用
+					return savedPosition;
+				}else {
+					return { x: 0, y: 0 }
+				}
+			}
+		})
+
+		const app11 = new Vue({
+			router: app11_router
+		}).$mount('#app11')
+
+		/**
+			Router 实例属性
+			
+				router.app 
+				@type {Vue Instance}
+
+					配置了 router 的 Vue 根实例
+
+				router.mode
+				@type {String}
+
+					路由使用的模式
+
+				router.currentRoute
+				@type {Route}
+
+					当前路由对应的路由信息对象
+
+
+			Router 实例方法
+
+				router.beforeEach 全局前置守卫
+
+					router.beforeEach((to, from, next) => {
+					  /* must call `next` 
+					})
+
+				router.beforeResolve 全局解析守卫
+				
+					router.beforeResolve((to, from, next) => {
+					  /* must call `next` 
+					})
+
+				router.afterEach 全局后置钩子
+
+					router.afterEach((to, from) => {})
+
+				路由独享的守卫 beforeEnter 
+
+					const router = new VueRouter({
+					  routes: [
+					    {
+					      path: '/foo',
+					      component: Foo,
+					      beforeEnter: (to, from, next) => {
+					        // ...
+					      }
+					    }
+					  ]
+					})
+
+				router.push
+					router.push(location, onComplete? Function, onAbort? Function)
+					
+					router.push('home')
+					this.$router.push({path: '/login?url=' + this.$route.path});
+					router.push({ name: 'user', params: { userId: 123 }})
+					this.$router.push({path: '/backend/order', query: {selected: "2"}});
+					
+					// 参数示例
+					const userId = 123
+					router.push({ name: 'user', params: { userId }}) // -> /user/123
+					router.push({ path: `/user/${userId}` }) // -> /user/123
+					// 这里的 params 不生效
+					router.push({ path: '/user', params: { userId }}) // -> /user
+
+
+					**注意：**如果目的地和当前路由相同，只有参数发生了改变 (比如从一个用户资料到另一个 /users/1 -> /users/2)，你需要使用 beforeRouteUpdate 来响应这个变化 (比如抓取用户信息)
+
+				router.replace
+					router.replace(location, onComplete?, onAbort?)
+
+				router.go
+					router.go(n)
+
+				router.back
+					router.back()
+
+				router.forward
+					router.forward()
+
+
+				router.getMatchedComponents
+				函数签名：
+					const matchedComponents: Array<Component> = router.getMatchedComponents(location?)
+					
+					返回目标位置或是当前路由匹配的组件数组 (是数组的定义/构造类，不是实例)。通常在服务端渲染的数据预加载时时候。
+
+				router.resolve
+
+					const resolved: {
+					  location: Location;
+					  route: Route;
+					  href: string;
+					} = router.resolve(location, current?, append?)
+
+
+					解析目标位置 (格式和 <router-link> 的 to prop 一样)。
+
+					current 是当前默认的路由 (通常你不需要改变它)
+					append 允许你在 current 路由上附加路径 (如同 router-link
+
+				router.addRoutes
+
+					router.addRoutes(routes: Array<RouteConfig>)
+
+					动态添加更多的路由规则。参数必须是一个符合 routes 选项要求的数组
+
+				router.onReady
+
+					router.onReady(callback, [errorCallback])
+
+				router.onError
+
+					router.onError(callback)
+
+		*/
+
+		const app12_component1 = {
+			template: "<div style='background:blue;height:50px' @click='handlerClick'>我是组件12注册组件child2</div>",
+			methods: {
+				handlerClick: function () {
+					console.log(1, this);
+					console.log(2, this.$route)  // 当前路由信息
+					console.log(3, this.$router); // 路由 history api
+					console.log(4, this.$router.getMatchedComponents(this.$router.fullPath)) // 获取当前路由对应的组件
+					console.log(5, this.$router.resolve(this.$route, '99999999', '/2342l')) // 解析路由
+					console.log(6, this.$router.addRoutes([{
+						path: '/app12-addRoutes',
+						component: {
+							template: '<div style="color: #666">我是动态添加的路由</div>'
+						}
+					}]))
+				}
+			},
+			/**
+				组件内的守卫
+
+					最后，你可以在路由组件内直接定义以下路由导航守卫：
+
+					beforeRouteEnter
+					beforeRouteUpdate (2.2 新增)
+					beforeRouteLeave
+			*/
+			beforeRouteEnter (to, from, next) {
+			  // 在渲染该组件的对应路由被 confirm 前调用
+			  // 不！能！获取组件实例 `this`
+			  // 因为当守卫执行前，组件实例还没被创建
+			  // 不过，你可以通过传一个回调给 next来访问组件实例。在导航被确认的时候执行回调，并且把组件实例作为回调方法的参数。
+
+			  next(vm => {
+			      // 通过 `vm` 访问组件实例
+			    })
+			},
+			beforeRouteUpdate (to, from, next) {
+			  // 在当前路由改变，但是该组件被复用时调用
+			  // 举例来说，对于一个带有动态参数的路径 /foo/:id，在 /foo/1 和 /foo/2 之间跳转的时候，
+			  // 由于会渲染同样的 Foo 组件，因此组件实例会被复用。而这个钩子就会在这个情况下被调用。
+			  // 可以访问组件实例 `this`
+			  this.name = to.params.name
+			    next()
+			},
+			beforeRouteLeave (to, from, next) {
+			  // 导航离开该组件的对应路由时调用
+			  // 可以访问组件实例 `this`
+			  const answer = window.confirm('Do you really want to leave? you have unsaved changes!')
+			    if (answer) {
+			      next()
+			    } else {
+			      next(false)
+			    }
+			}
+		}
+		const app12_router = new VueRouter({
+			routes: [{
+				path: '/app12',
+				component: app12_component1,
+				beforeEnter: (to, from, next) => {
+					console.log('beforeEnter', 2)
+					next()
+				}
+			}]
+		})
+
+		app12_router.beforeEach((to, from, next) => {
+			//  注册前置守卫
+			console.log('beforeEach', 1)
+			/**
+				next(): 进行管道中的下一个钩子。如果全部钩子执行完了，则导航的状态就是 confirmed (确认的)。
+
+				next(false): 中断当前的导航。如果浏览器的 URL 改变了 (可能是用户手动或者浏览器后退按钮)，那么 URL 地址会重置到 from 路由对应的地址。
+
+				next('/') 或者 next({ path: '/' }): 跳转到一个不同的地址。当前的导航被中断，然后进行一个新的导航。你可以向 next 传递任意位置对象，且允许设置诸如 replace: true、name: 'home' 之类的选项以及任何用在 router-link 的 to prop 或 router.push 中的选项。
+
+				next(error): (2.4.0+) 如果传入 next 的参数是一个 Error 实例，则导航会被终止且该错误会被传递给 router.onError() 注册过的回调。
+			*/
+			// next(false);
+			next();
+		})
+		app12_router.beforeResolve((to, from, next) => {
+			//  注册解析守卫
+			console.log('beforeResolve',3)
+			next();
+		})
+		app12_router.afterEach((to, from) => {
+			//  注册路由独享的守卫
+			console.log('afterEach',4)
+		})
+
+
+		/**
+			完整的导航解析流程
+			1. 导航被触发。
+			2. 在失活的组件里调用离开守卫。
+			3. 调用全局的 beforeEach 守卫。
+			4. 在重用的组件里调用 beforeRouteUpdate 守卫 (2.2+)。
+			5. 在路由配置里调用 beforeEnter。
+			6. 解析异步路由组件。
+			7. 在被激活的组件里调用 beforeRouteEnter。
+			8. 调用全局的 beforeResolve 守卫 (2.5+)。
+			9. 导航被确认。
+			10. 调用全局的 afterEach 钩子。
+			11. 触发 DOM 更新。
+			12. 用创建好的实例调用 beforeRouteEnter 守卫中传给 next 的回调函数。
+		*/
+
+		const app12 = new Vue({
+			el: '#app12',
+			router: app12_router
+		})
+
+
+
+		/**
+			一、路由对象 routes (表示当前激活的路由的状态信息)
+
+				路由对象是不可变 (immutable) 的，每次成功的导航后都会产生一个新的对象
+
+				路由对象出现在多个地方:
+
+					1. 在组件内，即 this.$route
+
+					2. 在 $route 观察者回调内
+
+					3. router.match(location) 的返回值
+
+					4. 导航守卫的参数：
+
+						1)
+							router.beforeEach((to, from, next) => {
+							  // `to` 和 `from` 都是路由对象
+							})
+
+						2)
+							router.beforeEach((to, from, next) => {
+							  // `to` 和 `from` 都是路由对象
+							})
+
+
+			二、路由对象属性
+				
+				$route.path
+				@type {String}  字符串，对应当前路由的路径，总是解析为绝对路径
+
+				$route.params
+				@type {Object}  
+
+					一个 key/value 对象，包含了动态片段和全匹配片段，如果没有路由参数，就是一个空对象。
+				
+				$route.query
+				@type {Object}
+
+				$route.hash
+				@type {String}  带 # 
+
+				$route.fullPath
+				@type {String}  完成解析后的 URL，包含查询参数和 hash 的完整路径
+
+				$route.matched
+				@type {Array<RouteRecord>}
+
+				$route.name
+
+
+				$route.redirectedFrom 
+
+				如果存在重定向, 即为重定向来源的路由的名字
+
+			
+			三、组件注入
+
+				注入的属性
+					通过在 Vue 根实例的 router 配置传入 router 实例，下面这些属性成员会被注入到每个子组件。
+
+					this.$router  router 实例。
+
+					this.$route immutable(不可变的), 可以通过 watch (监测变化)	
+					
+				增加的组件配置选项
+
+					beforeRouteEnter
+
+					beforeRouteUpdate
+
+					beforeRouteLeave
+
+					查看组件内的守卫。				
+
+
+
+		*/
+
+		const app13_component1 = {
+			template: "<div @click='handlerClick'>我是路由13的组件</div>",
+			methods: {
+				handlerClick: function (){
+					this.$router.push('/app12');
+				}
+			}
+		}
+		const app13_component2 = {
+			template: "<div @click='handlerClick' style='color:red;'>我是路由13的重定向组件</div>",
+			methods: {
+				handlerClick: function (){
+					this.$router.push('/app12');
+				}
+			}
+		}
+
+		const app13_router = new VueRouter({
+			routes: [{
+				path: '/app13/:userId',
+				name: 'app13',
+				component: app13_component1,
+				redirect: '/a',
+				redirect: to => {
+					// return {
+					// 	path: '/app13/redirect',
+					// 	// component: app13_component2,
+					// 	// name: 'app13-redirect'
+					// }
+					return '/app13/redirect'
+				},
+				alias: 'app13/userId', 
+			},{
+				path: '/app13/redirect',
+				component: app13_component2,
+				name: 'app13-redirect'
+			}]
+		})
+
+		const app13 = new Vue({
+			el: '#app13',
+			router: app13_router
+		})
+
+		
+
+
+	</script>
+
+
+</body>
+</html>

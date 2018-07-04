@@ -1,0 +1,44 @@
+性能调优
+
+大约 80%-90% 的终端响应时间是花费在前端，其中包含下载页面中的图片，样式表，脚本，flash等。Yahoo 为此总结了 14 条规则，成为网站性能优化的事实标准。
+
+雅虎网站性能优化的 14 条规则：
+
+尽可能减少 HTTP 请求数
+使用 CDN（内容分发网络）
+为文件头指定 Expires 或 Cache-Control，使内容具有缓存性
+使用 Gzip 压缩内容
+把 CSS 放到顶部
+把 JavaScript 放在底部
+避免在 CSS 中使用 Expressions
+把 JavaScript 和 CSS 都放到外部文件中
+减少 DNS 查找次数
+压缩 JavaScript 和 CSS
+避免重定向
+剔除重复的 JavaScript 和 CSS
+配置 Etags
+使 AJAX 缓存
+对规则的分析：
+
+代码编写方面的规则：
+把 CSS 放到顶部
+把 JavaScript 放在底部
+把 JavaScript 和 CSS 都放到外部文件中
+避免在 CSS 中使用 Expressions
+使 AJAX 缓存
+打包方面的规则：
+尽可能减少 HTTP 请求数
+压缩 JavaScript 和 CSS
+剔除重复的 JavaScript 和 CSS
+部署方面的规则：
+使用 CDN（内容分发网络）
+为文件头指定 Expires 或 Cache-Control，使内容具有缓存性
+使用 Gzip 压缩内容
+减少 DNS 查找次数
+避免重定向
+配置 Etags
+对规则的实践
+
+部署方面的规则，应用 Nginx 为静态文件添加 Expires 跟 Cache-Control 头， 配置 Etags，并启用 Gzip 压缩。并且避免在 Nginx 中做重定向，有条件的话可以 启用 CDN，并优化网络配置以减少 DNS 查找次数。
+代码编写方面的规则，需要在编写代码种形成规范。默认使用类似 jQuery 这样的库 便可以对 AJAX 进行缓存。
+打包方面 Linner 可以合并 JavaScript 与 CSS 文件, 并且支持小图片的合并， 用以减少 HTTP 请求数。同时 Linner 的仓库管理可以避免重复的 JavaScript 与 CSS 文件的出现。在 build 过后所有的文件将会被压缩。

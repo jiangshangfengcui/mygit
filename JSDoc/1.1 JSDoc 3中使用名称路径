@@ -1,0 +1,82 @@
+Namepaths in JSDoc 3（JSDoc 3中的名称路径）
+
+
+	JSDoc 3 中名称路径的基本语法示例：
+
+	1、
+		/** @constructor */
+		Person = function() {
+		    this.say = function() {
+		        return "I'm an instance.";
+		    }
+
+		    function say() {
+		        return "I'm inner.";
+		    }
+		}
+		Person.say = function() {
+		    return "I'm static.";
+		}
+
+		var p = new Person();
+		p.say();      // I'm an instance. 实例
+		Person.say(); // I'm static. 静态
+		// 这里无法直接访问内部函数 there is no way to directly access the inner function from here
+
+		你可以使用三种不同的名称路径语法来表示这三种不同的方法。
+
+
+		Person#say  // 名为"say"的实例方法
+		Person.say  // 名为"say"的静态方法
+		Person~say  // 名为"say"的内部函数
+
+
+	2、
+		实例成员是一个构造器
+
+		/** @constructor */
+		Person = function() {
+		    /** @constructor */
+		    this.Idea = function() {
+		        this.consider = function(){
+		            return "hmmm";
+		        }
+		    }
+		}
+
+		var p = new Person();
+		var i = new p.Idea();
+		i.consider();
+
+		在这种情况下，引用名为"consider"的方法，你可以使用下面的名路径名：Person#Idea#consider
+
+	链接可与连接符号（#,.,~）任意组合使用。
+
+	3、 
+		特殊情况：模块，外部组件和事件。
+
+		/** @namespace */
+		var chat = {
+		    /**
+		     * Refer to this by {@link chat."#channel"}.
+		     * @namespace
+		     */
+		    "#channel": {
+		        /**
+		         * Refer to this by {@link chat."#channel".open}.
+		         * @type {boolean}
+		         * @defaultvalue
+		         */
+		        open: true,
+		        /**
+		         * Internal quotes have to be escaped by backslash. This is
+		         * {@link chat."#channel"."say-\"hello\""}.
+		         */
+		        'say-"hello"': function (msg) {}
+		    }
+		};
+
+		/**
+		 * Now we define an event in our {@link chat."#channel"} namespace.
+		 * @event chat."#channel"."op:announce-motd"
+		 */

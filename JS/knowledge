@@ -152,6 +152,16 @@
 	字面量定义的对象不在Object上
 	相同构造器生成的对象原型相同
 
+	例如：
+
+	object（要检测的对象） instanceof constructor（某个构造函数）
+
+	function C(){} 
+
+	var o = new C();
+
+	o instanceof C; // true，因为 Object.getPrototypeOf(o) === C.prototype
+
 8、bind的用法
 	
 	类似与apple、call方法，改变执行上下文的this, 同为Function的原型方法
@@ -173,3 +183,201 @@
 		if(evt.key && evt.key === 'Enter') || evt.which === 13){
 
 		}
+
+11、判断是不是数组
+	
+	typeof ary            
+	ary instanceof Array
+	ary.constructor==Array   比较原型链，
+	Object.prototype.toString.call(o)=='[object Array]' 通用法 等同于Array.isArray();
+
+12、Object.setPrototypeOf(obj, prototype)
+
+	obj 		要重置原型的对象
+	prototype 	新原型，如果是非对象类型什么都不做
+
+	ES6新标准方法
+
+13、超类和子类
+	
+	被继承的类一般称为“超类”或“父类”，继承的类称为“子类”。
+
+14、WeakMap
+	
+	所有的key都是弱引用，必须都是Object、Function、Array
+
+	let w = new WeakMap();
+
+	有四种方法：
+		w.set(key, value)
+		w.get(key)
+		w.has(key)
+		w.delete(key)
+
+15、Set 
+	
+	一组不重复的数
+
+	let s = new Set(['ji', 34, 4]);
+
+	s.size 
+	s.set(value)
+	s.has(value)
+	s.delete(value)
+	s.clear()
+	s.forEach((item) => {
+		console.log(item);
+	})
+	for(let item of s) {
+		console.log(item);
+	}
+
+16、WeakSet
+
+	一组不重复的数
+
+	let ws = new WeakSet()
+
+	ws.add(window)
+	ws.has(value)
+	ws.delete(value)
+
+17、class
+
+	class Car {
+	  	constructor() {
+	    	console.log("Creating a new car");
+	  	}
+
+	  	des () {
+	    	console.log('I am a car');
+	    }
+
+	    static self () {
+	    	this.log = '我是静态方法，不会被实例继承，但可以使用super.xxx调用';
+	    }
+	}
+	 
+	class Porsche extends Car {
+	  	constructor() {
+	    	super();
+	    	super.des();		// 可以调用超类的方法
+	    	console.log("Creating Porsche");
+	  	}
+	}
+	 
+	let c = new Porsche();
+	// Creating a new car
+	// Creating Porsche
+
+
+	 ES6 明确规定， Class 内部只有静态方法， 没有静态属性
+	 Foo.xxx = xxx 的方式定义静态属性
+
+
+18、Symbol
+	
+	Symbol 是一种新的数据类型，它的值是唯一的，不可变的。ES6 中提出 symbol 的目的是为了生成一个唯一的标识符，不过你访问不到这个标识符
+
+	var sym = Symbol('some optional description')
+
+	如果它被用作一个对象的属性，那么这个属性会是不可枚举的：
+	var o = {
+	    val: 10,
+	    [ Symbol("random") ]: "I'm a symbol",
+	};
+	 
+	console.log(Object.getOwnPropertyNames(o)); // val
+
+
+19、Iterator
+
+	原生的遍历器
+	let arr = ['a', 'b', 'c'];
+	let iter = arr[Symbol.iterator]();
+
+	iter.next()			// {value: 'a', done: false}
+
+	解构赋值、spread、yield会用到Symbol.iterator
+
+
+
+	普通对象并没有部署Iterator接口，所以是无法使用for of循环的，用以下两种方案解决：
+
+	// 方法一
+	for (var key of Object.keys(someObject)) {
+	  console.log(key + ': ' + someObject[key]);
+	}
+
+	// 方法二
+	function* entries(obj) {
+	  for (let key of Object.keys(obj)) {
+	    yield [key, obj[key]];
+	  }
+	}
+	for (let [key, value] of entries(obj)) {
+	  console.log(key, '->', value);
+	}
+
+20、Generators
+
+	function * infiniteNumbers() {
+		var n = 1;
+		while (true) {
+			yield n++;
+		}
+	}
+
+	var number = infiniteNumbers();
+	number.next(); 		// {value: '1', done: false}
+
+
+	从第二次执行next方法带参数有效
+
+
+17、promise
+
+	var p = new Promise(function (resolve, reject) {
+		if() {
+			resolve(/*value*/)
+		}else {
+			reject(/*reason*/)
+		}
+	})
+
+	p.the(() => {},
+	 () => {})
+
+
+18、Object.assign(target, ...source)
+	浅拷贝合并属性值，
+
+	深拷贝
+	deepCopy: function (source) {
+        var result = {};
+        for (var key in source) {
+            result[key] = typeof source[key] === 'object' ? this.deepCopy(source[key]) : source[key];
+        }
+        return result;
+    }
+	
+19、出于安全考虑禁止通过程序获取历史列表中的url，只能通过window.history.go()、window.history.forward()、window.history.back()、window.history.replace() 方法操作前进后退
+	
+	通过 window.history.length > 1 来判断是否有前一页
+
+
+20、原生获取自定义 data 
+
+		target.dataset.id
+
+
+21、自定义 trim
+	trim: function (val) {
+	    return typeof val == "string" && val.replace(/(^\s*)|(\s*$)/g, "");
+	}
+
+22、检测浏览器内核
+
+	微信    "micromessenger" == userAgent.match(/MicroMessenger/i) 
+
+	IOS    	userAgent.match(/cpu iphone os (.*?) like mac os/)
