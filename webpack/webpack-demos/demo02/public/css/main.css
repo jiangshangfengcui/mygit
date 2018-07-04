@@ -1,0 +1,9 @@
+.box :after{
+	content: '\56FD\4EA4\4F1A';
+	color: yellow;
+
+};#con{
+	height:100px;
+	width:100px;
+	background:#ff0;
+}

@@ -1,0 +1,1 @@
+webpackJsonp([0],[,function(e,o){document.write("<h2>Hello Webpack</h2>")},function(e,o,n){n(1),document.write("<h1>Hello World</h1>")}],[2]);
