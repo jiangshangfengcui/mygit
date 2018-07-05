@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		[v-cloak] {
+			display: none;
+		}
+		[id] {
+			color: red;
+		}
+	</style>
+</head>
+<body>
+	
+	<div id="app" v-cloak>
+	  <p>{{ count }}</p>
+	  <p>
+	    <button @click="increment">+</button>
+	    <button @click="decrement">-</button>
+	  </p>
+	</div>
+
+	<div id="app1"></div>
+
+	<script src="../vue/dist/vue.js"></script>
+
+	<!-- 应用CDN  通过 https://unpkg.com/vuex@2.0.0 这样的方式指定特定的版本。 -->
+	<script src="https://unpkg.com/vuex@3.0.1"></script>
+	<!-- 
+		在一个模块化的打包系统中，您必须显式地通过 Vue.use() 来安装 Vuex： 
+
+			import Vue from 'vue'
+			import Vuex from 'vuex'
+
+			Vue.use(Vuex)
+	-->
+	<!-- 
+		
+		Vuex 依赖 Promise。如果你支持的浏览器并没有实现 Promise (比如 IE)，那么你可以使用一个 polyfill 的库，例如 es6-promise。
+		
+	 -->
+	 <!-- 通过 CDN 引入 es6-promise -->
+	 <!-- 然后 window.Promise 会自动可用。 -->
+	 <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.js"></script>
+
+	 <!-- 使用包管理器安装 -->
+	 <!-- 
+			npm install es6-promise --save # npm
+			yarn add es6-promise # Yarn
+	  -->
+	  <!-- 
+			或者更进一步，将下列代码添加到你使用 Vuex 之前的一个地方：
+
+				import 'es6-promise/auto'
+	   -->
+
+	<!-- 自己构建 -->
+	<!-- 
+			git clone https://github.com/vuejs/vuex.git node_modules/vuex
+			cd node_modules/vuex
+			npm install
+			npm run build
+	 -->
+
+	 <!-- 
+		Redux 的作者 Dan Abramov 的话说就是：Flux 架构就像眼镜：您自会知道什么时候需要它。
+	  -->
+	  <script>
+
+	  		// Vuex 的核心是 store (库), 是一个包含应用中大部分的状态 (state) 的容器。 
+
+	  </script>
+	
+		<script>
+
+			/**
+			 	es6 语法转换包 
+
+			 	npm install --save-dev babel-loader babel-core babel-preset-es3 babel-preset-es2015 babel-preset-es2015[babel-preset-stage-0, babel-preset-stage-1, babel-preset-stage-2, babel-preset-stage-3] [babel-preset-es2016 babel-polyfill | babel-runtime(生产环境) | babel-plugin-transform-runtime(开发环境)] babel-plugin-tranform-classes(解决ES6类（class）的兼容性) babel-preset-env
+
+			 		babel预设可以编译几乎所有的JavaScript新语法，但是对于API却不能解决，解决这个问题babel用的是 babel-polyfill (它有core-js和regenerator两部分构成)。
+
+			 	1.那个模块需要就在那个模块引入，
+
+			 		require('babel-polyfill');
+
+			 	2.全局引入方法1，在项目的入口文件引入，如果项目有多个入口，则在每个需要的入口分别加入。
+
+			 		require('babel-polyfill');
+
+			 	3.全局引入方法2，可以在项目的 webpack.config.js 的入口配置项中引入。
+
+				 	entry: {
+				 	    app: ['babel-polyfill', './main.js']
+				 	},
+
+				 而刚刚好babel提供了babel-runtime。babel-plyfill我们以前经常用，而babel-runtime，则是现在常用的。
+
+				 babel-runtime 
+
+				 	babel-runtime 官方建议用在生产环境，而开发环境使用 babel-plugin-transform-runtime
+
+				 babel-preset-env
+
+				 	给我们的项目指定支持的浏览器和运行环境。
+
+
+
+
+
+				.babelrc 文件配置
+
+					{
+					    "presets": ["es2015", "es-stage-2"],      // babel-preset-es2015 babel-preset-stage-2
+					    "plugins": ["transform-runtime"],         // babel-plugin-transform-runtime(开发环境)
+					    "env": {                               // babel-preset-env
+					        "targets": {
+					            "browsers": ["last 2 versions", "safari >= 7"], // 浏览器
+					            "node": "6.10" // node 
+					        }
+					    }
+					}
+
+				babel-loader 只是起到一个通知者的角色，通知babel你需要干活了，在webpack的module中使用代码如下：
+
+					module: {
+					  	rules: [{
+					      	test: /\.js$/,
+					      	exclude: /(node_modules)/, // 不对node_modules目录下的文件进行编译，可以提升webpack打包速度，其他loader也有这个配置
+					      	use: {
+					        	loader: 'babel-loader',
+					        	// loader: 'babel-loader?cacheDirectory', // 使用缓存目录它可以进一步提升webpack的编译速度
+					        	options: { // 这个配置项我们一般单独拿出来，创建一个‘.babelrc’文件来单独存放配置项
+					          		presets: ['@babel/preset-env']，// babel预设
+					          		plugin: ['@babel/plugin-proposal-object-rest-spread'] // 所需要使用的插件
+					        	}
+					      	}
+					    }]
+					}
+			 */
+
+
+		</script>
+
+	  <script>
+	  		// make sure to call Vue.use(Vuex) if using a module system
+
+	  		const {mapState, Store} = Vuex; console.log(mapState);
+
+	  		const store = new Vuex.Store({
+	  		  state: {
+	  		    count: 0
+	  		  },
+	  		  /**
+			   * Getters
+			   * @type {Object} 
+			   * @decs 
+	  		  */
+	  		  getters: {
+	  		  	doneTodos: state => {
+	  		  		return state.todos.filter(todo => todo.done);
+	  		  	}
+	  		  }
+	  		  mutations: {
+	  		  	increment: state => state.count++,
+	  		    decrement: state => state.count--
+	  		  }
+	  		})
+
+	  		new Vue({
+	  		  el: '#app',
+	  		  computed: {
+	  		    count () {
+	  			    return store.state.count
+	  		    }
+	  		  },
+	  		  methods: {
+	  		    increment () {
+	  		      store.commit('increment')
+	  		    },
+	  		    decrement () {
+	  		    	store.commit('decrement')
+	  		    }
+	  		  }
+	  		})
+
+
+	  		// 创建一个 Counter 组件
+	  		const Counter = {
+	  		  template: `<div @click="console">{{ count }} <div>我是别名alias: {{ countAlias }}</div></div>`,
+	  		  data () {
+	  		  	return {
+	  		  		localCount: 10
+	  		  	}
+	  		  },
+	  		  /**
+				
+					state 组件仍然保有局部状态
+
+					使用 Vuex 并不意味着你需要将所有的状态放入 Vuex。虽然将所有的状态放到 Vuex 会使状态变化更显式和易调试，但也会使代码变得冗长和不直观。如果有些状态严格属于单个组件，最好还是作为组件的局部状态。你应该根据你的应用开发需要进行权衡和确定。
+
+
+
+	  		  */
+	  		  computed: {
+	  		    count () {
+	  		      return this.$store.state.count
+	  		    }
+	  		  },
+	  		  computed: mapState([
+	  		    // 映射 this.count 为 store.state.count
+	  		    'count'
+	  		  ]),
+	  		  computed: {
+	  		    localComputed () { /* ... */ },
+	  		    // 使用对象展开运算符将此对象混入到外部对象中
+	  		    ...mapState({
+	  		      // ...
+	  		      count: state => state.count,
+	  		      jiegou: 'count',
+	  		      countAlias: 'count'
+	  		    }),
+
+	  		  },
+	  		  computed: mapState({
+	  		      // 箭头函数可使代码更简练
+	  		      count: state => state.count,
+
+	  		      // 传字符串参数 'count' 等同于 `state => state.count`
+	  		      countAlias: 'count',
+
+	  		      // 为了能够使用 `this` 获取局部状态，必须使用常规函数
+	  		      countPlusLocalState (state) {
+	  		        return this.$store.state.count + this.localCount
+	  		      }
+	  		  }),
+	  		  methods: {
+	  		  	console () {
+	  		  		console.log(188, this.$store);
+	  		  	}
+	  		  }
+	  		}
+
+	  		const app = new Vue({
+	  		  el: '#app1',
+	  		  // 把 store 对象提供给 “store” 选项，这可以把 store 的实例注入所有的子组件
+	  		  store,
+	  		  components: { Counter },
+	  		  template: `
+	  		    <div class="app" @click="console">
+	  		      <counter ></counter>
+	  		    </div>
+	  		  `,
+	  		  methods: {
+	  		  	console () {
+	  		  		console.log(this.$store)
+	  		  	}
+	  		  }
+	  		})
+	  </script>
+
+</body>
+</html>

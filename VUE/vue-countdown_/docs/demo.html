@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div id="app">
+		<countdown :time="time" :interval="1000" >
+		    <template slot-scope="props">New Year Countdown：{{ props.days }} days, {{ props.hours }} hours, {{ props.minutes }} minutes, {{ props.seconds }} seconds.</template>
+		</countdown>
+	</div>
+
+	<script src="../dist/vue-countdown.js"></script>
+	<script src="../../vue/dist/vue.js"></script>
+	<script>
+		var app = new Vue({
+			el: "#app",
+			components: {
+				"countdown": VueCountdown,
+			},
+			data: {
+				time: '',
+			},
+			mounted: function () {
+				var now = new Date();
+				this.time = now.getTime();
+			},
+			methods: {
+
+			}
+		})
+	</script>
+
+</body>
+</html>
