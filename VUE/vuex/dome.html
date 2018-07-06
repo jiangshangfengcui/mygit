@@ -24,6 +24,14 @@
 
 	<div id="app1"></div>
 
+	<div id="app2">
+		
+	</div>
+
+	<div id="app3">
+		
+	</div>
+
 	<script src="../vue/dist/vue.js"></script>
 
 	<!-- 应用CDN  通过 https://unpkg.com/vuex@2.0.0 这样的方式指定特定的版本。 -->
@@ -147,7 +155,7 @@
 	  <script>
 	  		// make sure to call Vue.use(Vuex) if using a module system
 
-	  		const {mapState, Store} = Vuex; console.log(mapState);
+	  		const {Store, mapState, mapGetters, mapMutations} = Vuex; console.log(mapState);
 
 	  		const store = new Vuex.Store({
 	  		  state: {
@@ -162,7 +170,7 @@
 	  		  	doneTodos: state => {
 	  		  		return state.todos.filter(todo => todo.done);
 	  		  	}
-	  		  }
+	  		  },
 	  		  mutations: {
 	  		  	increment: state => state.count++,
 	  		    decrement: state => state.count--
@@ -259,6 +267,261 @@
 	  		  	}
 	  		  }
 	  		})
+
+
+	  		// Getters 属性
+	  		const app2_store = new Store({
+	  			state: {
+	  				todos: [
+	  					{id: 1, text: '文本1', done: true},
+	  					{id: 2, text: '文本2', done: false}
+	  				]
+	  			},
+	  			getters: {
+	  				other2: (state) => state.todos,
+	  				doneTodos: (state, getters) => {
+	  					console.log(getters);
+	  					return state.todos.filter(todo => todo.done);
+	  				},
+	  				doneTodosLenght: (state, getters) => {
+	  					console.log(getters.doneTodos.length);
+	  					return getters.doneTodos.length
+	  				},
+	  				getTodoById: (state) => (id) => {
+	  					console.log(id);
+	  				    return state.todos.find(todo => todo.id === id)
+	  				}
+	  			},
+	  			mutations: {
+	  				reverse: state => state.todos.reverse(),
+	  				push: (state, obj) => obj && state.todos.push(obj)
+	  			}
+	  		})
+
+	  		const app2_component1 = {
+	  			template: `<div><li v-for="(todo, index) in todos">{{todo.text}}</li><li v-for="(todo, index) in selfTodos">{{todo.text}}</li><ul>Getters-doneTods<li v-for="(doneTodo, index) in doneTodos">{{ doneTodo.text }}</li></ul><button @click="push">push</button><button @click="reserve">reserve</button><div >{{ doneTodosLenght }}</div></div>`,
+	  			data: function () {
+	  				return {
+	  					selfTodos: [{id:1, text: `我是组件自有的todos文本`, done: false}]
+	  				}
+	  			},
+	  			computed: {
+	  				todos () {
+	  					return this.$store.state.todos
+	  				},
+	  				doneTodos () {
+	  					return this.$store.getters.doneTodos
+	  				},
+	  				doneTodosLenght () {
+	  					return this.$store.getters.doneTodosLenght
+	  				},
+	  				...mapGetters([
+	  				      'other2',
+	  				    
+	  				      // ...
+	  				    ])
+	  			},
+	  			methods: {
+	  				push () {
+	  					app2_store.commit('push', {id: 3, text: `我是push进来的`, done: true})
+	  				},
+	  				reserve () {
+	  					app2_store.commit('reverse')
+	  				}
+	  			}
+	  		}
+	  		const app2 = new Vue({
+	  			el: '#app2',
+	  			store: app2_store,
+	  			components: {
+	  				"app2_component1": app2_component1
+	  			},
+	  			template: `<app2_component1></app2_component1>`
+	  		})
+
+	  		//etter 会暴露为 store.getters 对象，你可以以属性的形式访问这些值：
+	  		console.log(app2_store.getters.doneTodos);
+
+	  		// Getter 也可以接受其他getter 作为第二个参数：
+	  		/*
+				doneTodosCount: (state, getters) => {
+				    return getters.doneTodos.length;
+				}
+	  		*/
+
+	  		// 通过方法访问
+	  		/*
+				getTodoById: (state) => (id) => {
+				    return state.todos.find(todo => todo.id === id)
+				  }
+	  		*/
+	  		app2_store.getters.getTodoById(2);// 注意，getter 在通过方法访问时，每次都会去进行调用，而不会缓存结果。
+
+	  		// mapGetters 辅助函数
+	  		// mapGetters 辅助函数仅仅是将 store 中的 getter 映射到局部计算属性：
+	  		/*
+				computed: {
+				  // 使用对象展开运算符将 getter 混入 computed 对象中
+				    ...mapGetters([
+				      'doneTodosCount',
+				      'anotherGetter',
+				      // ...
+				    ])
+				  }
+
+				如果你想将一个 getter 属性另取一个名字，使用对象形式：
+
+				mapGetters({
+				  // 把 `this.doneCount` 映射为 `this.$store.getters.doneTodosCount`
+				  doneCount: 'doneTodosCount'
+				})
+	  		*/
+
+
+	  		// Mutation
+	  		const app3_store = new Store({
+	  			state: {
+	  				todos: [
+	  					{id: 1, text: '文本1', done: true},
+	  					{id: 2, text: '文本2', done: false}
+	  				]
+	  			},
+	  			getters: {
+	  				other2: (state) => state.todos,
+	  				doneTodos: (state, getters) => {
+	  					console.log(getters);
+	  					return state.todos.filter(todo => todo.done);
+	  				},
+	  				doneTodosLenght: (state, getters) => {
+	  					console.log(getters.doneTodos.length);
+	  					return getters.doneTodos.length
+	  				},
+	  				getTodoById: (state) => (id) => {
+	  					console.log(id);
+	  				    return state.todos.find(todo => todo.id === id)
+	  				}
+	  			},
+	  			mutations: {
+	  				reverse: (state, payload) => state.todos.reverse(),
+	  				push: (state, payload) => payload && payload.obj && state.todos.push(payload.obj)
+	  			}
+	  		})
+
+	  		const app3_component1 = {
+	  			template: `<div><li v-for="(todo, index) in todos">{{todo.text}}</li><button @click="push">push</button><button @click="reserve">reserve</button><button @click="ruzhan({obj:{id:4, text: '我是通过映射的方法触发的commit', done:  true}})">ruzhan</button></div>`,
+	  			data: function () {
+	  				return {
+	  					selfTodos: [{id:1, text: `我是组件自有的todos文本`, done: false}]
+	  				}
+	  			},
+	  			computed: {
+	  				todos () {
+	  					return this.$store.state.todos
+	  				},
+	  			},
+	  			methods: {
+	  				push () {
+	  					app3_store.commit({
+	  						type: 'push',
+	  						obj: {id: 3, text: `我是push进来的`, done: true}
+	  					})
+	  				},
+	  				reserve () {
+	  					app3_store.commit('reverse', '额外的参数');
+	  				},
+	  				...mapMutations({
+	  					ruzhan: "push"
+	  				})
+	  			}
+	  		}
+	  		const app3 = new Vue({
+	  			el: '#app3',
+	  			store: app3_store,
+	  			components: {
+	  				"app3_component1": app3_component1
+	  			},
+	  			template: `<app3_component1></app3_component1>`
+	  		})
+
+	  		/*
+				唤醒mutation方式：
+
+				1、store.commit('increment')
+
+				2、提交载荷（Payload）
+
+					mutations: {
+					  increment (state, payload) {
+					    state.count += payload.amount
+					  }
+					}
+
+					store.commit('increment', 10)
+
+				3、对象风格的提交方式
+
+					store.commit({
+					  type: 'increment',
+					  amount: 10
+					})
+
+					mutations: {
+					  increment (state, payload) {
+					    state.count += payload.amount
+					  }
+					}
+	  		*/
+
+	  		// 使用常量替代 Mutation 事件类型
+	  		/*
+				使用常量替代 mutation 事件类型在各种 Flux 实现中是很常见的模式。这样可以使 linter 之类的工具发挥作用，同时把这些常量放在单独的文件中可以让你的代码合作者对整个 app 包含的 mutation 一目了然：
+
+				// mutation-types.js
+				export const SOME_MUTATION = 'SOME_MUTATION'
+
+				// store.js
+				import Vuex from 'vuex'
+				import { SOME_MUTATION } from './mutation-types'
+
+				const store = new Vuex.Store({
+				  state: { ... },
+				  mutations: {
+				    // 我们可以使用 ES2015 风格的计算属性命名功能来使用一个常量作为函数名
+				    [SOME_MUTATION] (state) {
+				      // mutate state
+				    }
+				  }
+				})
+	  		*/
+
+	  		// Mutation 必须是同步函数
+
+	  		/*
+				实质上任何在回调函数中进行的状态的改变都是不可追踪的
+	  		*/
+
+	  		// 在组件中提交 Mutation
+	  		/*
+				调用方式：
+
+					1、在组件中使用 this.$store.commit('xxx') 提交 mutation 
+
+					2、使用 mapMutations 辅助函数将组件中的 methods 映射为 store.commit 调用（需要在根节点注入 store）
+
+						methods: {
+						   ...mapMutations([
+						     'increment', // 将 `this.increment()` 映射为 `this.$store.commit('increment')`
+
+						     // `mapMutations` 也支持载荷：
+						     'incrementBy' // 将 `this.incrementBy(amount)` 映射为 `this.$store.commit('incrementBy', amount)`
+						   ]),
+						   ...mapMutations({
+						     add: 'increment' // 将 `this.add()` 映射为 `this.$store.commit('increment')`
+						   })
+						 }
+	  		*/
+
+	  		// Action
 	  </script>
 
 </body>
